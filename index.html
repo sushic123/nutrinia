@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nutrinia</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oi&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Smooth page glide */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Page background and font */
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #2c352d;
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Sticky top navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #1b241c;
+      padding: 14px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #3d4f3f;
+    }
+
+    .nav-brand {
+      font-weight: 600;
+      font-size: 18px;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: greenyellow;
+    }
+
+    /* Top app area */
+    .main-app {
+      padding: 90px 20px 60px 20px;
+      scroll-margin-top: 60px;
+    }
+
+    /* Main title */
+    h3 {
+      font-family: 'Oi', sans-serif;
+      font-weight: 400;
+      font-size: 30px;
+      color: #ffffff;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+    }
+
+    /* Typing box */
+    input {
+      font-family: 'Outfit', sans-serif;
+      background-color: greenyellow;
+      color: #1f3311;
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 2px solid #4a7c59;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #3d5a28;
+    }
+
+    input:focus {
+      border-color: #ffffff;
+    }
+
+    /* Check button */
+    button {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      padding: 12px 18px;
+      font-size: 16px;
+      background-color: greenyellow;
+      color: #1f3311;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+
+    button:hover {
+      background-color: lightgreen;
+    }
+
+    /* Result message */
+    #answer {
+      color: #ffffff;
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: 600;
+      min-height: 28px;
+    }
+
+    /* Lower info cards */
+    .info-section {
+      max-width: 550px;
+      margin: 80px auto;
+      padding: 30px;
+      background-color: #1b241c;
+      border: 1px solid #3d4f3f;
+      border-radius: 12px;
+      scroll-margin-top: 90px;
+    }
+
+    .info-section h4 {
+      color: greenyellow;
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    /* Email link style */
+    .email-link {
+      color: greenyellow;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <a href="#top" class="nav-brand">Nutrinia</a>
+    <div class="nav-links">
+      <a href="#top">Home</a>
+      <a href="#crop-guide">Crop List</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+  <!-- Main App -->
+  <section id="top" class="main-app">
+    <h3>nutrinia</h3>
+    <input id="cropInput" placeholder="Type crop planted last year">
+    <button onclick="checkSoil()">Check</button>
+    <p id="answer"></p>
+  </section>
+
+  <!-- Crop List Card -->
+  <section id="crop-guide" class="info-section">
+    <h4>Crop List</h4>
+    <p>Corn, Tomatoes, Wheat</p>
+    <p>Carrots, Lettuce, Potatoes</p>
+    <p>Beans, Peas, Soybeans</p>
+    <p>Watermelon, Onions, Strawberries</p>
+    <p>Email <a href="mailto:example@example.com" class="email-link">example@example.com</a> for crop recommendations!</p>
+  </section>
+
+  <!-- About Card -->
+  <section id="about" class="info-section">
+    <h4>About This App</h4>
+    <p>This tool helps prevent monoculture by recommending what to plant next based on the soil nutrients left behind by last year's crop.</p>
+  </section>
+
+  <!-- App Logic -->
+  <script>
+    // Run check when Enter is pressed inside the input field
+    document.getElementById("cropInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        checkSoil();
+      }
+    });
+
+    // Match crop and show next planting tip
+    function checkSoil() {
+      let crop = document.getElementById("cropInput").value.toLowerCase().trim();
+      let answerText = document.getElementById("answer");
+
+      if (crop === "corn" || crop === "tomatoes" || crop === "tomato") {
+        answerText.innerText = "Corn and tomatoes use up nitrogen. Plant carrots or lettuce next!";
+      } else if (crop === "carrots" || crop === "carrot" || crop === "lettuce") {
+        answerText.innerText = "Your soil needs a recharge. Plant beans or peas next!";
+      } else if (crop === "wheat") {
+        answerText.innerText = "Your soil needs a recharge. It is deprived of nitrogen. Plant soybeans next!";
+      } else if (crop === "soybeans" || crop === "soybean") {
+        answerText.innerText = "Your soil needs a recharge. It is deprived of nitrogen. Plant potatoes next!";
+      } else if (crop === "potatoes" || crop === "potato" || crop === "potatos") {
+        answerText.innerText = "Your soil is deprived of Phosphorus. Plant soybeans next!";
+      } else if (crop === "watermelon" || crop === "watermelons") {
+        answerText.innerText = "Your soil needs a recharge. It is deprived of nitrogen. Plant onions next!";
+      } else if (crop === "onions" || crop === "onion") {
+        answerText.innerText = "Your soil needs a recharge. It is deprived of nitrogen. Plant peas or beans next!";
+      } else if (crop === "strawberries" || crop === "strawberry") {
+        answerText.innerText = "Plant beans or peas next!";
+      } else if (crop === "nutrinia") {
+        answerText.innerText = "YOU FOUND MEEEE! YAY!";
+      } else if (crop === "squash") {
+        answerText.innerText = "Plant carrots or onions next!";
+      } else if (crop === "cookie" || crop === "cookies") {
+        answerText.innerText = "YUM! Here's a cookie 🍪!";
+      } else if (crop === "beans" || crop === "bean" || crop === "peas" || crop === "pea") {
+        answerText.innerText = "These crops add nitrogen to soil. Plant corn or tomatoes next!";
+      } else if (crop === "") {
+        answerText.innerText = "Please type a crop name first!";
+      } else {
+        answerText.innerText = "I don't know that crop yet. Try corn, carrots, or beans.";
+      }
+    }
+  </script>
+
+</body>
+</html>
